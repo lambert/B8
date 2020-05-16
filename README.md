@@ -1,2 +1,1 @@
-# B8
-PRU cape
+# BeagleBone Black PRU cape
