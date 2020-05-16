@@ -119,7 +119,7 @@ WAIT0:
   JMP LOOOP0
 
 EXIT:
-  Send motification to Host for program completion.
+  Send notification to Host for program completion.
   MOV r31.b0, PRU1_ARM_INTERRUPT + 16
 
   // Halt the processor.
