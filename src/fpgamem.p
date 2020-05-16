@@ -61,9 +61,9 @@ LOOOP1:
   WBS r31.t9
 
   // 8 bits
-  WBS r31.t10  // Wait for clock rising edge-> data arrives
-  WBC r31.t10  // Read data at falling edge
-  MOV r2.b0, r31.bo  // Read input register, and copy to r2
+  WBS r31.t10  // Wait for clock rising edge-> data arrives.
+  WBC r31.t10  // Read data at falling edge.
+  MOV r2.b0, r31.bo  // Read input register, and copy to r2.
 
   SBCO r2.b0, CONST_PRUDRAM, r3, 1
   ADD r3, r3, 1
@@ -71,7 +71,56 @@ LOOOP1:
   SUB r7, r7, 1
   QBNE LOOOP1, r7, 0
   CLR r30.t8
-  SBCO 0x0001, CONST_PRUDRAM, 0, 2  / Set flag high
+  SBCO 0x0001, CONST_PRUDRAM, 0, 2  / Set flag high.
 
   MOV r3, 0x00002000  // Local address in dataRAM0
   JMP WAIT0
+
+LOOOP0:
+  // 8 bits
+  WBS r31.t9
+
+  WBS r31.t10  // Wait for clock rising edge-> data arrives.
+  WBC r31.t10  // Read data at falling edge.
+  MOV r2.b0, r31.b0  // Read input register, and copy to r2.
+
+  SBCO r2.b0, CONST_PRUDRAM, r3, 1
+  ADD r3, r3, 1
+
+  SUB r7, r7,1
+  QBNE LOOOP0, r7, 0
+  CLR r30.t8
+  MOV r3, 0x00002000
+
+  SBCO 0x0001, CONST_PRUDRAM, r3, 2  // Set flag high.
+
+  SUB r8, r8, 1
+  QBNE WAIT1, r8, 0
+  JMP EXIT
+
+WAIT1:
+  // Wait until the flag is cleared.
+  LBCO r12.w0, CONST_PRUDRAM, 0, 2
+  QBNE WAIT1, r12.w0, 0x0000
+
+  MOV r7, RECORDS
+  MOV r3, 2
+  SET r30.t8
+  JMP LOOOP1
+
+WAIT0:
+  // Wait until the flag is cleared.
+  LBCO r12.w0, CONST_PRUDRAM, r3, 2
+  QBNE WAIT0, r12.w0, 0x0000
+
+  ADD r3, r3, 2
+  MOV r7, RECORDS
+  SET r30.t8
+  JMP LOOOP0
+
+EXIT:
+  Send motification to Host for program completion.
+  MOV r31.b0, PRU1_ARM_INTERRUPT + 16
+
+  // Halt the processor.
+  HALT
