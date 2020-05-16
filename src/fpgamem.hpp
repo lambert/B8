@@ -1,4 +1,4 @@
-// fpgamem.hp
+// fpgamem.hpp
 
 #ifndef __PRUCODE_FPGA_HP__
 #define __PRUCODE_FPGA_HP__
