@@ -119,9 +119,15 @@ void communication0 (unsigned char* data)
   {
     data[x] = convertdata (pruDataMem_short0[x + 1]);
   }
-  /* data[x] = convertdata (pruDataMem_short0 [x + 1]); */
+  /* data[x] = convertdata (pruDataMem_short0[x + 1]); */
   pruDataMem_short0[0] = 0;
   pruDataMem_short0[1] = 0;
 }
-                            
+
+void ExitPRU ()
+{
+  /* Disable PRU and close memory mapping. */
+  prussdrv_pru_disable (PRU_NUM);
+  prussdrv_exit ();
+}
                            
