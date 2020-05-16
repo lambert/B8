@@ -77,3 +77,24 @@ unsigned int InitPRU (void)
   prussdrv_pruintc_init (&pruss_intc_initdata);
   return (ret); /* ret = 0 if PRU successfully initialized. */
 }
+
+int InitMEM ()
+{
+  prussdrv_map_prumem (PRUSS0_PRU1_DATARAM, &pruDataMem);
+
+  /* Assigne the data RAM address to two pointers. */
+  pruDataMem_short1 = (unsigned char*) pruDataMem; /* AM22XX_DATA 8KB RAM1, Global Memory. */
+  pruDtatMem_short0 = (unsigned char*) (pruDataMem - OFFSET_MEM0); /* AM33XX_DATA 8KB RAM0. */
+
+  return (0);
+}
+
+void ExePRU (void)
+{
+  /* Execute the bin file. */
+
+  prussdrv_exec_program (PRU_NUM, "./fpgamem.bin");
+  printf ("\tINFO: Executing ...\r\n");
+  /* Give some time for the PRU code to execute. */
+  sleep (1);
+}
