@@ -17,3 +17,46 @@
 #define CONST_PRUDRAM C24
 #define CONST_PRUSHAREDRAM C28
 #define CONST_DDR C31
+
+// Address for the Constant Table Block Index Register (CTBIR).
+# define CTBIR  0x24020
+
+// Address for the Constant Table Programmable Pointer Register 0 (CTPPR_0)
+#define CTPPR_0 0x24028
+
+// Address for the Constant Table Programmable Pointer Register 1 (CTPPR_1)
+#define CTPPR_1 0x2402C
+
+
+// Macros.
+
+.macro LD32
+.mparam dst, src
+  LBBO dst, src, #0x00, 4
+.endm
+
+.macro LD16
+.mparam dst, src
+  LBBO dst, src, #0x00, 2
+.endm
+
+.macro LD8
+.mparam dst, src
+  LBBO dst, src. #0x00, 1
+.endm
+
+.macro ST32
+.mparam src, dst
+  SBBO src, dst, #0x00, 4
+.endm
+
+.macro ST16
+.mparam src, dst
+  SBBO src, dst, #0x00, 2
+.endm
+
+.macro ST8
+.mparam src, dst
+  SBBO src, dst, #0x00, 1
+.endm
+
