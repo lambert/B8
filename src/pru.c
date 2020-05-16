@@ -110,3 +110,18 @@ void communication1 (unsigned char* data)
   pruDataMem_short1[0] = 0;
   pruDataMem_short1[1] = 0;
 }
+
+void communication0 (unsigned char* data)
+{
+  unsigned int x;
+  while (pruDataMem_short0[0] == 0 && pruDataMem_short0[1] == 0);
+  for (x = 0; x < num; x++)
+  {
+    data[x] = convertdata (pruDataMem_short0[x + 1]);
+  }
+  /* data[x] = convertdata (pruDataMem_short0 [x + 1]); */
+  pruDataMem_short0[0] = 0;
+  pruDataMem_short0[1] = 0;
+}
+                            
+                           
