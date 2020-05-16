@@ -16,7 +16,7 @@
 // LCD_DATA6      P8.39     D6      PRU1_R31_6
 // LCD_DATA7      P8.40     D7      PRU1_R31_7
 // LCD_PCLK       P8.28     CLK     PRU1_R31_10
-// LCD_VSYNC      P8.27     START   PRU1_R31_8
+// LCD_VSYNC      P8.27     START   PRU1_R30_8
 // LCD_HSYNC      P8.29     EN      PRU1_R31_9
 
 .origin 0
@@ -52,3 +52,26 @@ MOV r2.w0, 0x0000
 SBCO 0x0, CONST_PRUDRAM, 0, 2  // Clear the flag for data RAM1
 MOV r3, 0x00002000
 SBCO 0x0, CONST_PRUDRAM, r3, 2  // Clear the flag for data RAM0
+
+MOV r3, 2  // Index
+MOV r8, 20000
+SET r30.t8
+
+LOOOP1:
+  WBS r31.t9
+
+  // 8 bits
+  WBS r31.t10  // Wait for clock rising edge-> data arrives
+  WBC r31.t10  // Read data at falling edge
+  MOV r2.b0, r31.bo  // Read input register, and copy to r2
+
+  SBCO r2.b0, CONST_PRUDRAM, r3, 1
+  ADD r3, r3, 1
+
+  SUB r7, r7, 1
+  QBNE LOOOP1, r7, 0
+  CLR r30.t8
+  SBCO 0x0001, CONST_PRUDRAM, 0, 2  / Set flag high
+
+  MOV r3, 0x00002000  // Local address in dataRAM0
+  JMP WAIT0
