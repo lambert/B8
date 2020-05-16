@@ -22,6 +22,25 @@
 .origin 0
 .entrypoint START
 
-#include "fpgamem.hpp"
+#include "fpgamem.hp"
 
 #define MASK0 0x000000ff
+
+// Memory location where to store the data to be acquired:
+#define ACQRAM 0x00010004
+
+// Length of acquisition:
+#deine RECORDS 4096  // 1024
+
+START:
+// Enable OCP master port
+LBCO r0, CONST_PRUCFG, 4, 4
+CLR r0, r0, 4  // lear SYSCFG[STANDBY_INIT] to enable OCP master port
+SBCO r0, CONST_PRUCFG, 4, 4
+
+// Configure the programmable pointer register for PRU1
+// by setting c28_pointer[15:0] field to 0x0100.
+// This will make c28 point to 0x00010000 (PRU shared RAM), see 'fpgamem.hp'.
+MOV r0, 0x00010000
+MOV r1, CTPPR_1
+ST32 r0, r1
