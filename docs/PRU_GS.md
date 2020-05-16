@@ -54,3 +54,64 @@ provides an example of interacting with the PRU using a non-Linux OS.
 However, Linux or CCS can also be used to load and run the demos.
 The basic procedure for using Linux with the PRU is described in the PRU-SW Getting Started Guide.
 
+## Preparing the Environment
+
+### Prepare the SD Card
+
+- Plug the MicroSD card into your host computer
+
+- Format the MicroSD card with the HP USB Disk Storage Format Tool v2.0.6 Portable.
+  Formatting instructions and a download link can be found at [http://processors.wiki.ti.com/index.php/AM335X_StarterWare_Booting_And_Flashing#Booting_Via_SD_Card](http://processors.wiki.ti.com/index.php/AM335X_StarterWare_Booting_And_Flashing#Booting_Via_SD_Card).
+
+- Copy the demo binaries (StarterWare bootloader - MLO and demo binary - app, found under
+  the pru_cape/bin directory of the PRU Software Support Package) to the MicroSD card
+
+### Ready your Host PC - Serial Terminal
+
+In order to communicate with the BeagleBone Black and run the PRU Cape demos, a serial port terminal
+program must be installed on your host PC.
+For Windows, you could use Teraterm or PuTTY.
+For Linux, we recommend Minicom.
+
+Use the following settings when connecting to the the PC's serial port terminal program:
+
+   Baud rate: 115200
+
+   Data : 8 bit
+
+   Parity: None
+
+   Stop: 1 bit
+
+   Flow control: none
+
+### Setup your BeagleBone Black
+
+This section will walk you through setting-up your Beaglebone Black for use with the PRU Cape demos.
+
+1. Plug the PRU Cape into the BeagleBone Black. Be sure the board is aligned correctly based on the
+   cape-cutout for the Ethernet jack.
+
+2. Insert the MicroSD card loaded with the latest PRU Cape Demo Images into the BeagleBone Black.
+
+3. Plug the FTDI cable into your host PC and connect to the BeagleBone Black.
+
+4. Plug the headphones or speakers into the audio jack on the PRU Cape.
+
+5. Connect the RS-232 cable to the RS-232 port on the PRU Cape and to your host PC.
+
+6. Open two serial terminals on your host PC connected to the FTDI cable and the RS-232 cable.
+
+7. Plug the USB cable into the BeagleBone Black and your host PC to power on the board.
+
+## Running the Demos
+
+This section will walk you through actually running the PRU Cape demo code.
+Note the following instructions assume all steps in the Preparing the Environment section have been followed.
+
+### Steps to Run the Demos
+
+1. To boot the board, simply apply power to the BeagleBone Black by plugging in the USB cable to both the
+   board and your host PC.
+   If the FTDI cable is plugged in and the debug serial port is configured correctly, you should see the
+   output on your serial terminal.
