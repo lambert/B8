@@ -115,3 +115,88 @@ Note the following instructions assume all steps in the Preparing the Environmen
    board and your host PC.
    If the FTDI cable is plugged in and the debug serial port is configured correctly, you should see the
    output on your serial terminal.
+
+![fig_2](Pru_demo_menu.png)
+
+2. In the console (shown above), type the number of the demo you would like to run and press ‘enter.’
+   To run all demos, select ‘6.’
+
+### LED Demo
+
+The LED Demo uses the PRU0 and PRU1 R30 GPOs (Direct Output Mode) to toggle all PRU Cape LEDs.
+There are 4 LEDs connected to PRU0 GPO0-3, and 3 connected to PRU1 GPO3-5.
+
+In this demo, the user should observe the 4 LEDs (D1-D4) and the 3 LEDs (D5-D7) blinking on and off.
+
+### Push Button Switch Demo
+
+The Push Button Switch Demo uses the PRU0 R31 GPIs (Direct Input Mode) to read 2 push button switches
+and toggle LEDs connected to the PRU0 R30 GPO (Direct Output Mode).
+
+In this demo, the user should observe the following when each switch is pressed:
+
+- Press SW1 --> LEDs D1 & D2 turn on
+
+- Press SW2 --> LEDs D3 & D4 turn on
+
+### Audio Demo
+
+The Audio Demo uses the PRU GPO Shift Out mode to transmit a single audio tone to an external
+8 bit DAC, headphone amplifier, and headphone jack.
+In this application, the PRU reads an array that contains a sine wave in 8bit format, reformats
+the data to be compliant with the DAC, shifts out the data and generates sync signals.
+This sine wave is written to both the left and right channels of the headphone jack.
+
+This demo requires the headset or speaker to be inserted into the headphone jack.
+During the demo, a single tone will be played.
+
+### UART Demo
+
+The UART Demo uses the PRU to control the hardware UART peripheral (pr1_uart0),
+which is located within the PRU subsystem.
+
+This demo requires the RS-232 cable to be connected to the PRU Cape's RS-232 port and the
+host PC, with a serial terminal opened on the PC.
+During the demo, the following message should appear on the terminal connected to the RS-232 cable:
+
+   “Hello you are in the PRU UART demo test please enter 5 characters”
+
+The user should type any 5 characters.
+After typing the 5th character, the console will display the 5 characters entered by the tester.
+
+### HDQ/Temperature Sensor Demo
+
+The HDQ/Temperature Sensor Demo uses the PRU to periodically sample a temperature sensor (TEMP1)
+and toggle a Red LED if the temperature rises or a Blue LED if the temperature falls.
+A bit-banged 1-Wire interface is implemented on PRU0 to communicate with the external temperature
+sensor.
+
+In this demo, the user can cover TEMP1 with their hand, causing the temperature around the sensor
+to rise.
+The Red LED (D7) should turn on as the temperature increases.
+After observing the Red LED turn on, the user can remove their hand and cause the temperature
+around the sensor to fall.
+The Blue LED (D5) should turn on as the temperature decreases.
+When the temperature is constant, both LEDs should be off.
+
+The LED color map for this demo is summarized below:
+
+- Temp increases --> Red LED (D7) on, Blue LED (D5) off
+
+- Temp constant --> Red LED (D7) off, Blue LED (D5) off
+
+- Temp decreases --> Red LED (D7) off, Blue LED (D5) on
+
+### All
+
+Selecting the "All" option will play each demo one at a time in the order displayed on the serial terminal.
+Through the serial terminal, the user will control when the next demo begins.
+
+## Editing and Rebuilding Demos
+
+For details about rebuilding the PRU Demo source code, visit the
+[PRU Cape: Building Demos Guide](https://processors.wiki.ti.com/index.php/PRU_Cape:_Building_Demos).
+
+## Legal
+
+- [Standard Terms and Conditions for Evaluation Modules](https://processors.wiki.ti.com/images/7/7c/Sszz027h.pdf).
