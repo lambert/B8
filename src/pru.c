@@ -1,7 +1,7 @@
 /* pru.c
  *
  * Copyright (C) 2014 ADLab - http://www.analogdigitallab.org/
- * Authors: Haolin Li, Jorsi Van Kerrebrouck
+ * Authors: Haolin Li, Joris Van Kerrebrouck
  * Acknowledgment : Intec Design, University Ghent
  * Project Name: Etherscope v1.0
  * Create Date: 23:32:38 02/27/2013
@@ -97,4 +97,16 @@ void ExePRU (void)
   printf ("\tINFO: Executing ...\r\n");
   /* Give some time for the PRU code to execute. */
   sleep (1);
+}
+
+void communication1 (unsigned char* data)
+{
+  unsigned int x;
+  while (pruDataMem_short1[0] == 0 && pruDataMem_short1[1] == 0);
+  for (x = 0; x < num; x++)
+  {
+    data[x] = convertdata (pruDataMem_short1[x + 1];
+  }
+  pruDataMem_short1[0] = 0;
+  pruDataMem_short1[1] = 0;
 }
