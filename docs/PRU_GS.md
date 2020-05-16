@@ -116,7 +116,7 @@ Note the following instructions assume all steps in the Preparing the Environmen
    If the FTDI cable is plugged in and the debug serial port is configured correctly, you should see the
    output on your serial terminal.
 
-![fig_2](Pru_demo_menu.png)
+   ![fig_2](Pru_demo_menu.png)
 
 2. In the console (shown above), type the number of the demo you would like to run and press ‘enter.’
    To run all demos, select ‘6.’
