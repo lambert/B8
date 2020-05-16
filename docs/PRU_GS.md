@@ -206,6 +206,6 @@ This page was last edited on 1 December 2014, at 18:17.
 
 Content is available under [Creative Commons Attribution-ShareAlike](http://creativecommons.org/licenses/by-sa/3.0/) unless otherwise noted.
 
-Privacy policy About Texas Instruments Wiki Disclaimers Terms of Use
+[Privacy policy](https://processors.wiki.ti.com/index.php/Project:Privacy_policy) [About Texas Instruments Wiki](https://processors.wiki.ti.com/index.php/Project:About) [Disclaimers](https://processors.wiki.ti.com/index.php/Project:General_disclaimer) [Terms of Use](https://processors.wiki.ti.com/index.php/Project:Terms_of_Service)
 
 ![CC-by-sa](../cc-by-sa.png)
