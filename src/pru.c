@@ -17,7 +17,7 @@
  #include <unistd.h>
  #include <string.h>
  
- #include "pru.h
+ #include "pru.h"
  
 /* Driver header file. */
 #include "prussdrv.h"
