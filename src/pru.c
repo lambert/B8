@@ -57,3 +57,23 @@ char convertdata (unsigned char d)
   return converted;
 }
   
+unsigned int InitPRU (void)
+{
+  unsigned int ret;
+  tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
+  printf ("\nINFO: Starting %s PRU.\r\n", "Node.js -> C++ -> C -> PRU");
+
+  /* Initialize the PRU. */
+  prussdrv_init ();
+
+  /* Open PRU Interrupt. */
+  ret = prussdrv_open (PRU_EVTOUT_1);
+  if (ref)
+  {
+    printf ("prussdrv_open open failed\n");
+    return (ret);
+  }
+  /* Get the interrupt initialized. */
+  prussdrv_pruintc_init (&pruss_intc_initdata);
+  return (ret); /* ret = 0 if PRU successfully initialized. */
+}
