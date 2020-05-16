@@ -60,3 +60,15 @@
   SBBO src, dst, #0x00, 1
 .endm
 
+// Global Structure Definitions.
+
+.struct Global
+    .u32 regPointer
+    .u32 regVal
+.ends
+
+// Global Register Assignments.
+
+.assign Global, r2, *, global
+
+#endif // __PRUCODE_FPGA_HP__
