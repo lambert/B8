@@ -30,7 +30,7 @@
 #define ACQRAM 0x00010004
 
 // Length of acquisition:
-#deine RECORDS 4096  // 1024
+#define RECORDS 4096  // 1024
 
 START:
 // Enable OCP master port
@@ -44,3 +44,11 @@ SBCO r0, CONST_PRUCFG, 4, 4
 MOV r0, 0x00010000
 MOV r1, CTPPR_1
 ST32 r0, r1
+
+MOV r7, RECORDS  // This will be the loop counter to read the entire set of data
+MOV r4, MASK0  // r4 is the mask for the lowest 8 bits
+
+MOV r2.w0, 0x0000
+SBCO 0x0, CONST_PRUDRAM, 0, 2  // Clear the flag for data RAM1
+MOV r3, 0x00002000
+SBCO 0x0, CONST_PRUDRAM, r3, 2  // Clear the flag for data RAM0
