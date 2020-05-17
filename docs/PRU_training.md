@@ -91,11 +91,11 @@ You should no longer see the flashing lights.
 
 2. Create a new PRU project.
 
-   a. Select File->New->CCS Project.
+   a. Select <b>File->New->CCS Project</b>.
 
-   b. In the far-right dropdown next to Target, select BeagleBone_Black.
+   b. In the far-right dropdown next to Target, <b>select BeagleBone_Black</b>.
 
-   c. Select PRU tab, specify a Project Name (toggle_led works well), and verify that Compiler version is TI v2.1.0 or higher.
+   c. Select <b>PRU tab</b>, specify a <b>Project Name (toggle_led works well)</b>, and verify that Compiler version is <b>TI v2.1.0</b> or higher.
 
-   d. Select Finish.
+   d. Select <b>Finish</b>.
    
