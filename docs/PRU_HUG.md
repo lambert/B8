@@ -48,4 +48,4 @@ The PRU Cape is shown below in Figure 1.
 
 The system block diagram of the PRU Cape are shown in Figure 2 and Figure 3.
 
-![fig_2](System_Diagram.jpg)
+![fig_2](./System_Diagram.jpg)
