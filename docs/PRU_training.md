@@ -300,7 +300,7 @@ PRU multi-core communication.
 
       4. <b>Enable event 16</b>
 
-      5 <b>Enable Host 1</b>
+      5. <b>Enable Host 1</b>
 
       6. <b>Globally enable interrupts</b>
 
@@ -324,11 +324,11 @@ PRU multi-core communication.
       CT_INTC.GER = 1;
       ```
 
-   <b>NOTE:</b>
+      <b>NOTE:</b>
 
-   Remember that you can use the CodeCompletion feature within CCS for a list of available registers and
-   bit fields in the structure!
-   To access it simply hit Ctrl+space after the dot (it should also open automatically when you type the dot).
+      Remember that you can use the CodeCompletion feature within CCS for a list of available registers and
+      bit fields in the structure!
+      To access it simply hit Ctrl+space after the dot (it should also open automatically when you type the dot).
 
    f. Within the while(1) loop we are going to begin polling the status of the R31 register to determine if
    the button has been pressed. When the button is pressed, you will generate the interrupt to PRU1 and
@@ -339,7 +339,7 @@ PRU multi-core communication.
    {
      if ((__R31 & SW1) != SW1)
      {
-       /* Interrupt PRU1, wait 500ms for cheap "debounce" */
+       /* Interrupt PRU1, wait 500 ms for cheap "debounce" */
        /* TODO: Trigger interrupt - see #defines */
        __delay_cycles(100000000); /* 500ms @ 200MHz */
      }
