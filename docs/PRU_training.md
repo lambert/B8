@@ -272,9 +272,35 @@ PRU multi-core communication.
       For more information see the definition of r31 writes in the device specific TRM.
 
    ```C
-   /* Defines */ /* PRU0-to-PRU1 interrupt */
+   /* Defines */
+   /* PRU0-to-PRU1 interrupt */
    
-   define PRU0_PRU1_EVT (16)
-   define PRU0_PRU1_TRIGGER (__R31 = (PRU0_PRU1_EVT - 16) | (1 << 5))
+   #define PRU0_PRU1_EVT (16)
+   #define PRU0_PRU1_TRIGGER (__R31 = (PRU0_PRU1_EVT - 16) | (1 << 5))
    ```
    d. Define the <b>GPI offset</b> for SW1 which is located in GPI5.
+
+   ```C
+   /* SW1 offset */
+   
+   #define SW1 (1 << 5)
+   ```
+
+   e. Go to the <b>configIntc function</b>.
+      This function is mostly intact, but you will need to <b>fill out the register values</b> in order to
+      configure the interrupt.
+      Refer to the PRU INTC register descriptions in the device specific TRM for register layouts.
+      For this exercise you will want to configure these registers such that:
+
+      i. <b>Event 16 is mapped to Channel 1</b>
+
+      ii. <b>Channel 1 is mapped to Host 1</b>
+
+      iii. <b>Ensure event 16 is clear</b>
+
+      iv. <b>Enable event 16</b>
+
+      v. <b>Enable Host 1</b>
+
+      vi. <b>Globally enable interrupts</b>
+
