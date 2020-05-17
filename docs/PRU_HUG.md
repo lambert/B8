@@ -197,7 +197,7 @@ The MAX3232ECD is the line driver/receiver.
 - [Standard Terms and Conditions for Evaluation Modules](https://processors.wiki.ti.com/images/7/7c/Sszz027h.pdf).
 
 
-This page was last edited on 1 December 2014, at 18:17.
+This page was last edited on 10 September 2015, at 13:57.
 
 Content is available under [Creative Commons Attribution-ShareAlike](http://creativecommons.org/licenses/by-sa/3.0/) unless otherwise noted.
 
