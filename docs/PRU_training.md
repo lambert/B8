@@ -292,15 +292,61 @@ PRU multi-core communication.
       Refer to the PRU INTC register descriptions in the device specific TRM for register layouts.
       For this exercise you will want to configure these registers such that:
 
-      i. <b>Event 16 is mapped to Channel 1</b>
+      1. <b>Event 16 is mapped to Channel 1</b>
 
-      ii. <b>Channel 1 is mapped to Host 1</b>
+      2. <b>Channel 1 is mapped to Host 1</b>
 
-      iii. <b>Ensure event 16 is clear</b>
+      3. <b>Ensure event 16 is clear</b>
 
-      iv. <b>Enable event 16</b>
+      4. <b>Enable event 16</b>
 
-      v. <b>Enable Host 1</b>
+      5 <b>Enable Host 1</b>
 
-      vi. <b>Globally enable interrupts</b>
+      6. <b>Globally enable interrupts</b>
+
+      ```C
+      /* Map event 16 to channel 1 */
+      CT_INTC.CMR4_bit.CH_MAP_16 = 1;
+
+      /* Map channel 1 to host 1 */
+      CT_INTC.HMR0_bit.HINT_MAP_1 = 1;
+
+      /* Ensure event 16 is cleared */
+      CT_INTC.SICR = 16;
+
+      /* Enable event 16 */
+      CT_INTC.EISR = 16;
+
+      /* Enable Host interrupt 1 */
+      CT_INTC.HIEISR |= (1 << 0);
+
+      /* Globally enable host interrupts */
+      CT_INTC.GER = 1;
+      ```
+
+   <b>NOTE:</b>
+
+   Remember that you can use the CodeCompletion feature within CCS for a list of available registers and
+   bit fields in the structure!
+   To access it simply hit Ctrl+space after the dot (it should also open automatically when you type the dot).
+
+   f. Within the while(1) loop we are going to begin polling the status of the R31 register to determine if
+   the button has been pressed. When the button is pressed, you will generate the interrupt to PRU1 and
+   wait 500 ms as a cheap 'debounce'.
+
+   ```C
+   while(1)
+   {
+     if ((__R31 & SW1) != SW1)
+     {
+       /* Interrupt PRU1, wait 500ms for cheap "debounce" */
+       /* TODO: Trigger interrupt - see #defines */
+       __delay_cycles(100000000); /* 500ms @ 200MHz */
+     }
+   }
+   ```
+
+   <b>NOTE:</b>
+
+   The switches are active low so we are looking for it to go low.
 
