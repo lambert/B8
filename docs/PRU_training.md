@@ -99,3 +99,41 @@ You should no longer see the flashing lights.
 
    d. Select <b>Finish</b>.
    
+![fig_1](./Pru_lab1_newproj.png)
+
+3. Main.c should open automatically. Let's start creating our example code!
+
+   a. Include <b>stdint and pru_cfg</b> headers.
+
+   b. Declare the <b>r30 register</b>.
+
+```
+#include <stdint.h>
+#include <pru_cfg.h>
+
+volatile register uint32_t __R30;
+```
+
+4. Add the include path for the header files so that the compiler can find them.
+
+   a. Select <b>Project->Properties</b>.
+
+   b. Select <b>Build->PRU Compiler->Include Options</b>.
+
+   c. In the box marked "Add dir to #include search path" <b>click the file icon with a green +</b>.
+
+   d. Specify the <b>directory to the include file</b> which for the BeagleBone Black is <PRU_SW_PATH>/include/am335x
+
+   <b>NOTE:</b>
+   If there is already a ${CCS_BASE_ROOT}/pru/include directory, <b>delete</b> it by clicking the file icon with a red X.
+
+   ![fig_2](./Pru_lab1_include.png)
+
+5. Now we will begin coding inside the main function.
+
+   a. Declare a <b>temporary variable called gpo</b> to represent GPO values.
+
+   b. Set GPI and GPO to <b>Mode 0</b> (Direct Output).
+
+   c. Create an infinite loop which <b>toggles the GPO pin(s)</b> and <b>delays one half second</b>.
+
