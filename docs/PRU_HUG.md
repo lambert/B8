@@ -191,3 +191,16 @@ The MAX3232ECD is the line driver/receiver.
 | PR1_UART0_RXD |	P9-26 |	UART1_RXD |	UART RxD |
 | PR1_UART0_RTS |	P9-21 |	UART2_TXD |	UART RTS |
 | PR1_UART0_CTS |	P9-22 |	UART2_RXD |	UART CTS |
+
+## Legal
+
+- [Standard Terms and Conditions for Evaluation Modules](https://processors.wiki.ti.com/images/7/7c/Sszz027h.pdf).
+
+
+This page was last edited on 1 December 2014, at 18:17.
+
+Content is available under [Creative Commons Attribution-ShareAlike](http://creativecommons.org/licenses/by-sa/3.0/) unless otherwise noted.
+
+[Privacy policy](https://processors.wiki.ti.com/index.php/Project:Privacy_policy) [About Texas Instruments Wiki](https://processors.wiki.ti.com/index.php/Project:About) [Disclaimers](https://processors.wiki.ti.com/index.php/Project:General_disclaimer) [Terms of Use](https://processors.wiki.ti.com/index.php/Project:Terms_of_Service)
+
+![CC-BY-SA](./cc-by-sa.png)
