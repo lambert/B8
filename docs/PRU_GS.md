@@ -10,7 +10,7 @@ write software and develop hardware around the PRU subsystem.
 The diagram below shows the basic features supported by the cape.
 For more details about the PRU Cape hardware, please refer to the [PRU Cape Hardware User Guide]().
 
-![fig_1](Pru_cape-wiki-blockdiagram.png)
+![fig_1](./Pru_cape-wiki-blockdiagram.png)
 
 ## Prerequisites
 
@@ -116,7 +116,7 @@ Note the following instructions assume all steps in the Preparing the Environmen
    If the FTDI cable is plugged in and the debug serial port is configured correctly, you should see the
    output on your serial terminal.
 
-   ![fig_2](Pru_demo_menu.png)
+   ![fig_2](./Pru_demo_menu.png)
 
 2. In the console (shown above), type the number of the demo you would like to run and press ‘enter.’
    To run all demos, select ‘6.’
@@ -208,4 +208,4 @@ Content is available under [Creative Commons Attribution-ShareAlike](http://crea
 
 [Privacy policy](https://processors.wiki.ti.com/index.php/Project:Privacy_policy) [About Texas Instruments Wiki](https://processors.wiki.ti.com/index.php/Project:About) [Disclaimers](https://processors.wiki.ti.com/index.php/Project:General_disclaimer) [Terms of Use](https://processors.wiki.ti.com/index.php/Project:Terms_of_Service)
 
-![CC-by-sa](../cc-by-sa.png)
+![CC-BY-SA](../cc-by-sa.png)
