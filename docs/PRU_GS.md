@@ -208,4 +208,4 @@ Content is available under [Creative Commons Attribution-ShareAlike](http://crea
 
 [Privacy policy](https://processors.wiki.ti.com/index.php/Project:Privacy_policy) [About Texas Instruments Wiki](https://processors.wiki.ti.com/index.php/Project:About) [Disclaimers](https://processors.wiki.ti.com/index.php/Project:General_disclaimer) [Terms of Use](https://processors.wiki.ti.com/index.php/Project:Terms_of_Service)
 
-![CC-BY-SA](../cc-by-sa.png)
+![CC-BY-SA](./cc-by-sa.png)
