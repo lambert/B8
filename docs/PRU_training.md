@@ -107,7 +107,7 @@ You should no longer see the flashing lights.
 
    b. Declare the <b>r30 register</b>.
 
-```
+```C
 #include <stdint.h>
 #include <pru_cfg.h>
 
@@ -137,7 +137,7 @@ volatile register uint32_t __R30;
 
    c. Create an infinite loop which <b>toggles the GPO pin(s)</b> and <b>delays one half second</b>.
 
-```
+```C
 void main ()
 {
   volatile uint32_t gpo; 
