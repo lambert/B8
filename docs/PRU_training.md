@@ -350,3 +350,31 @@ PRU multi-core communication.
 
    The switches are active low so we are looking for it to go low.
 
+6. Save the file, and then add the include directory to the Include Search Path to the button_led_0 project.
+
+   a. Select <b>Project->Properties</b>.
+
+   b. Select <b>Build->PRU Compiler->Include Options</b>.
+
+   c. In the box marked "Add dir to #include search path" <b>click the file icon with a green +</b>.
+
+   d. Specify the <b>directory to the include file</b> which for the BeagleBone Black is
+      <PRU_SW_PATH>/include/am335x
+
+   <b>NOTE:</b>
+
+   If there is already a ${CCS_BASE_ROOT}/pru/include directory, <b>delete it</b> by clicking the file icon with a red X.
+
+7. Select OK and <b>build the project</b>. This should now compile successfully! If not, correct any errors until build completes.
+
+8. Let's go modify the code in button_led_1.c
+
+   a. Include the <b>pru_intc.h header file</b>.
+
+   b. Notice the <b>define for HOST1_MASK</b>.
+      Hosts 0 and 1 are automatically mapped to bits 30 and 31, respectively, in the r31 register.
+      To view the status of Host 1 we mask out the lower 31 bits.
+
+   c. Create a <b>define to toggle the BLUE LED</b> which is located on <b>PRU1 GPO 3</b>.
+
+
