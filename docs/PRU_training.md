@@ -137,3 +137,33 @@ volatile register uint32_t __R30;
 
    c. Create an infinite loop which <b>toggles the GPO pin(s)</b> and <b>delays one half second</b>.
 
+```
+void main ()
+{
+  volatile uint32_t gpo; 
+  /* GPI Mode 0, GPO Mode 0 */
+  CT_CFG.GPCFG0 = 0;
+  /* Clear GPO pins */
+  __R30 = 0x0000;
+  while (1)
+  {
+    gpo = __R30;
+    gpo ^= 0xF;
+    __R30 = gpo;
+    __delay_cycles (100000000); // half-second delay
+  }
+}
+```
+
+6. Add the linker command file.
+
+   a. Delete <b>AM335x.cmd</b> from the project folder, if it was added automatically.
+
+   b. Select <b>Project->Add Files...</b>
+
+   c. Navigate to the <PRU_SW_PATH>/labs/lab_1 folder and select the <b>AM335x_PRU.cmd</b> file.
+   
+   <b>NOTE:</b>
+
+   Select <b>Copy files</b> and <b>OK</b> in the File Operation dialog box that appears when file is selected.
+   
