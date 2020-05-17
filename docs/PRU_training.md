@@ -167,3 +167,30 @@ void main ()
 
    Select <b>Copy files</b> and <b>OK</b> in the File Operation dialog box that appears when file is selected.
    
+   !{fig_3](./Pru_lab1_fileopbox.png)
+
+7. Build the project.
+
+   a. Select <b>Project->Build All</b>.
+
+   b. This should now compile successfully! If not, correct any errors until build completes.
+
+8. Select View->Target Configurations to see a list of available configurations.
+   <b>Note</b> that this list may be empty.
+
+   a. To create a new one <b>right click in the white space</b> in the Target Configurations window and select
+      <b>New Target Configuration</b>.
+
+   b. Specify a <b>filename</b> (such as <b>BBB_SDXDS200_pru.ccxml</b> if using a XDS200 emulator) and select <b>Finish</b>.
+
+   c. After the file opens select your <b>emulator</b> in the <b>Connection</b> drop-down.
+
+   d. Under Board or Device select the <b>BeagleBone_Black</b>.
+
+   e. Click the <b>Advanced</b> tab at the bottom of that window, select the <b>CortxA8 core</b>,
+      and browse to the <b>PRU_CAPE.gel file</b> (found in <PRU_SW_PATH>/pru_cape).
+
+   f. Click Save and close this file.
+
+   ![fig_4](./Pru_lab1_targetconfig.png)
+
