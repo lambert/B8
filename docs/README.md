@@ -53,8 +53,10 @@ on the Sitara platform.
 
 ## Technical Documentation
 
-[PRU Cape Getting Started Guide](PRU_GS.md)
+[PRU Cape Getting Started Guide](./PRU_GS.md)
 
-[PRU Cape Hardware User Guide](PRU_HUG.md)
+[PRU Cape Hardware User Guide](./PRU_HUG.md)
+
+[PRU Training: Hands-on Labs](./PRU_training.md)
 
 ![CC-BY-SA](./cc-by-sa.png)
