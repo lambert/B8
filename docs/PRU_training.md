@@ -194,3 +194,87 @@ void main ()
 
    ![fig_4](./Pru_lab1_targetconfig.png)
 
+9. Let’s launch the debugger and load the code!
+
+   a. In the "Target Configurations" view, right click the Target Configuration file we just created and select
+      <b>Launch Selected Configuration</b>.
+      Note that <b>Launch Selected Configuration</b> might not appear if you right click the file in a view other
+      than "Target Configurations".
+
+   b. After it loads right click on the CortxA8 core and select <b>Connect Target</b>.
+
+   c. Run the GEL script under <b>Scripts->Initialization->PRU_Cape_Init</b>.
+      <b>NOTE:</b>
+      This runs basic initialization code for pin muxing.
+
+   d. After the script runs, right click on the CortxA8 core and select <b>Disconnect Target</b>.
+
+   e. Right click on the PRU_0 core and select <b>Connect Target</b>.
+
+   f. Load the example you just build by selecting <b>Run->Load->Load Program</b>.
+
+   g. Select Browse, navigate to the project directory (by default /home/sitara/workspace_6.0/toggle_led/debug/)
+      and select the <b>toggle_led.out</b> file.
+
+   h. Select the <b>green arrow</b> to run your code.
+
+   i. You should now see the LEDs toggle!
+
+10. When you're all done enjoying your work, terminate the debug session using the big red square.
+
+## LAB 2: Read Push Button Switch on PRU0 GPI & Toggle LED with PRU1 GPO
+
+### Objective
+
+PRU multi-core communication.
+
+### Lab Steps
+
+1. Launch CCSv6 and select the default Workspace.
+
+2. Create two new PRU projects – one for PRU0 and one for PRU1.
+
+   a. Select <b>File->New->CCS Project</b>.
+
+   b. In the far-right dropdown next to Target, select <b>BeagleBone_Black</b>.
+
+   c. Select <b>PRU tab</b>, specify a <b>Project Name</b> (e.g., button_led_0 & button_led_1), and verify that
+      Compiler version is <b>TI v2.1.0</b> or higher.
+
+   d. Select <b>Finish</b>.
+
+   e. <b>Remember to create two separate projects, button_led_0 & button_led_1</b>.
+
+3. Copy the button_led_n.c and AM335x_PRU.cmd from the <PRU_SW_PATH>/labs/lab_2 directory into the new projects.
+
+   a. You can do this by selecting <b>File->Open File</b>, navigating to the button_led_n.c and AM335x_PRU.cmd
+      and <b>copying them to the project</b>.
+
+   b. Alternatively, you can browse to the directory in an explorer window and drag/drop them as you would
+      in Windows, or use Project->Add Files...
+
+4. Remove main.c from the projects. main() has been implemented in button_led_n.c
+
+5. Now we will begin modifying the code in button_led_0.c
+
+   a. Include the <b>pru_intc.h header file</b>.
+      Open it and examine the contents for a better understanding of the pruIntc structure.
+      You should find it in <PRU_SW_PATH>/include
+
+   b. Notice the new <b>declaration for the r31 register</b> as we did previously for the r30 register.
+      This allows us to directly access this register to generate interrupts.
+
+   c. Notice the <b>declarations for the interrupt</b> we will generate to signal to PRU1 that SW1 was pressed.
+      The PRU cores can generate interrupts manually using events 16-31; however, these are mapped to bits [3:0]
+      in the r31 register.
+      Additionally we have to trigger bit  5 to strobe the interrupt.
+      As an example, we pass 0b000 ORed with 0x20 to generate an interrupt on event 16.
+      For more information see the definition of r31 writes in the device specific TRM.
+
+   ```C
+   /* Defines */ /* PRU0-to-PRU1 interrupt */
+   
+   define PRU0_PRU1_EVT (16)
+   define PRU0_PRU1_TRIGGER (__R31 = (PRU0_PRU1_EVT - 16) | (1 << 5))
+   ```
+   d. Define the <b>GPI offset</b> for SW1 which is located in GPI5.
