@@ -47,3 +47,55 @@ The concepts of the lab will apply to other configurations but will need to be a
 - [PRU Code Generation Tools](http://software-dl.ti.com/codegen/non-esd/downloads/download.htm#PRU)
   (also available through the CCS App Center)
 
+### Supported Platforms
+
+This hands-on guide is focused on the AM335x processor on the Beaglebone Black due to the
+availability of the PRU cape for this platform as well as access to the PRU pins externally.
+However, the concept of loading/running firmwares described here will translate to the
+AM437x and AM57xx devices as well.
+The PRU Software Support Package supports all three of these devices.
+
+## LAB 1: Toggle LED with PRU GPO
+
+### Objective
+
+Toggle an LED using the PRU0 R30 GPO in Direct Output Mode (default).
+
+### Key Points
+
+- Compile PRU code
+
+- Load PRU code using CCS
+
+- Step through PRU code in CCS
+
+### Lab Steps
+
+<b>NOTE :</b>
+Before beginning, ensure that the kernel is not booting and/or already up and running.
+BeagleBone Black has an eMMC device with a kernel pre-built and flashed ready for boot;
+however, if the kernel loads prior to our connection to the ARM in CCS then you may
+experience issues with the debugger.
+These are primarily caused by the kernel enabling the MMU.
+Use a minicom console to stop U-Boot to prevent the kernel from booting.
+
+To work around this, first try popping out the microSD card if one is inserted.
+If the blue LEDs on the BBB are toggling when power is applied, then the board is still
+booting off the eMMC. On the BBB opposite the RJ-45 (Ethernet) connector, there is a push
+button almost directly under the audio jack that may be difficult to access with the PRU
+cape on.
+Press and hold this while power is applied, then release.
+You should no longer see the flashing lights.
+
+1. Launch CCSv6 and select the default Workspace.
+
+2. Create a new PRU project.
+
+   a. Select File->New->CCS Project.
+
+   b. In the far-right dropdown next to Target, select BeagleBone_Black.
+
+   c. Select PRU tab, specify a Project Name (toggle_led works well), and verify that Compiler version is TI v2.1.0 or higher.
+
+   d. Select Finish.
+   
