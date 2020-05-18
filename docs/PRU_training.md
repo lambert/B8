@@ -404,10 +404,10 @@ PRU multi-core communication.
 9. Save the file, and then add the include directory to the Include Search Path of the button_led_1 project as before.
 
 10. Select OK and then <b>build the project<b>.
-    This should now compile successfully !
+    This should now compile successfully \!
     If not, correct any errors until build completes.
 
-11. Let's launch the debugger and load the code
+11. Let's launch the debugger and load the code \!
 
    a. Right click the Target Configuration file we created earlier and select <b>Launch Selected Configuration</b>.
 
@@ -456,7 +456,7 @@ PRU multi-core communication.
       Since the event has not been cleared yet, the <b>GPO pin is instantly toggled off</b> before we can see it toggled on.
 
    e. <b>Rebuild the project, reload and observe</b>.
-      The LED should now toggle when you press SW1!
+      The LED should now toggle when you press SW1 \!
       No, really, you should.
       If you don't, this time it really is a bug.
 
