@@ -335,13 +335,13 @@ PRU multi-core communication.
    wait 500 ms as a cheap 'debounce'.
 
    ```C
-   while(1)
+   while (1)
    {
      if ((__R31 & SW1) != SW1)
      {
        /* Interrupt PRU1, wait 500 ms for cheap "debounce" */
        /* TODO: Trigger interrupt - see #defines */
-       __delay_cycles(100000000); /* 500ms @ 200MHz */
+       __delay_cycles (100000000); /* 500 ms @ 200 MHz */
      }
    }
    ```
@@ -377,4 +377,77 @@ PRU multi-core communication.
 
    c. Create a <b>define to toggle the BLUE LED</b> which is located on <b>PRU1 GPO 3</b>.
 
+   ```C
+   #define TOGGLE_BLUE (__R30 ^= (1 << 3))
+   ```
+
+   d. Notice the while(1) loop which is waiting for the Host 1 interrupt.
+
+   ```C
+   /* Spin in loop until interrupt on HOST 1 is detected */
+   while (1)
+   {
+     if (__R31 & HOST1_MASK)
+     {
+       TOGGLE_BLUE;
+     }
+   }
+   ```
+
+   e. Once the interrupt is received we need to clear it by <b>clearing the event</c>.
+
+   ```C
+   /* Clear interrupt event */
+   CT_INTC.SICR = 16;
+   ```
+
+9. Save the file, and then add the include directory to the Include Search Path of the button_led_1 project as before.
+
+10. Select OK and then <b>build the project<b>.
+    This should now compile successfully !
+    If not, correct any errors until build completes.
+
+11. Let's launch the debugger and load the code!
+
+   a. Right click the Target Configuration file we created earlier and select <b>Launch Selected Configuration</b>.
+
+   b. After it loads right click on the CortxA8 core and select <b>Connect Target</b>.
+
+   c. Run the GEL script under <b>Scripts->Initialization->Init</b>.
+
+   d. Right click on the PRU0 core and select <b>Connect Target</b>.
+
+   e. Load the example you just built by selecting <b>Project->Load->Load Program</b>, then navigate to the project
+      for button_led_0 and <b>select button_led_0.out</b>
+
+   f. Select the <b>green arrow</b> to run your code.
+
+   g. Right click on the PRU1 core and select <b>Connect Target</b>.
+
+   h. Load the second example you built by selecting <b>Run->Load->Load Program</b>, then navigate to the project
+      for button_led_1 and <b>select button_led_1.out</b>
+
+   i. Select the <b>green arrow</b> to run your code.
+
+   j. You should now see the other BLUE LED toggle when you press SW1! If not, keeping reading...
+
+12. Do you see the LED light up when you press SW1? If not, it sounds like a problem you will have to debug...
+
+   a. For this exercise we are going to take it easy on you and provide the answer; however, first a quick explanation of why your code is not working.
+
+   b. This is a very tightly controlled while loop containing only 4 assembly instructions.
+      Because every instruction is single cycle it will only take <b>4 cycles</b> to complete.
+      Normally this would not be an issue, but there is a <b>slight delay in the time it takes for our write to
+      the SICR to actually clear event 16</b>.
+
+   c. To work around these we need to add a <b>very small CPU delay</b> after the write to SICR.
+      We chose <b>5 cycles</b> even though it is overkill, but we wanted to be safe and guarantee that the event
+      was cleared before the loop cycled back.
+
+   ```C
+   /* Clear interrupt event */
+   CT_INTC.SICR = 16;
+   /* Delay to ensure the event is cleared in INTC */
+   __delay_cycles (5);
+   ```
 
