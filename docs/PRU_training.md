@@ -409,54 +409,54 @@ PRU multi-core communication.
 
 11. Let's launch the debugger and load the code \!
 
-   a. Right click the Target Configuration file we created earlier and select <b>Launch Selected Configuration</b>.
+    a. Right click the Target Configuration file we created earlier and select <b>Launch Selected Configuration</b>.
 
-   b. After it loads right click on the CortxA8 core and select <b>Connect Target</b>.
+    b. After it loads right click on the CortxA8 core and select <b>Connect Target</b>.
 
-   c. Run the GEL script under <b>Scripts->Initialization->Init</b>.
+    c. Run the GEL script under <b>Scripts->Initialization->Init</b>.
 
-   d. Right click on the PRU0 core and select <b>Connect Target</b>.
+    d. Right click on the PRU0 core and select <b>Connect Target</b>.
 
-   e. Load the example you just built by selecting <b>Project->Load->Load Program</b>, then navigate to the project
-      for button_led_0 and <b>select button_led_0.out</b>
+    e. Load the example you just built by selecting <b>Project->Load->Load Program</b>, then navigate to the project
+       for button_led_0 and <b>select button_led_0.out</b>
 
-   f. Select the <b>green arrow</b> to run your code.
+    f. Select the <b>green arrow</b> to run your code.
 
-   g. Right click on the PRU1 core and select <b>Connect Target</b>.
+    g. Right click on the PRU1 core and select <b>Connect Target</b>.
 
-   h. Load the second example you built by selecting <b>Run->Load->Load Program</b>, then navigate to the project
-      for button_led_1 and <b>select button_led_1.out</b>
+    h. Load the second example you built by selecting <b>Run->Load->Load Program</b>, then navigate to the project
+       for button_led_1 and <b>select button_led_1.out</b>
 
-   i. Select the <b>green arrow</b> to run your code.
+    i. Select the <b>green arrow</b> to run your code.
 
-   j. You should now see the other BLUE LED toggle when you press SW1! If not, keeping reading...
+    j. You should now see the other BLUE LED toggle when you press SW1! If not, keeping reading...
 
 12. Do you see the LED light up when you press SW1? If not, it sounds like a problem you will have to debug...
 
-   a. For this exercise we are going to take it easy on you and provide the answer; however,
-      first a quick explanation of why your code is not working.
+    a. For this exercise we are going to take it easy on you and provide the answer; however,
+       first a quick explanation of why your code is not working.
 
-   b. This is a very tightly controlled while loop containing only 4 assembly instructions.
-      Because every instruction is single cycle it will only take <b>4 cycles</b> to complete.
-      Normally this would not be an issue, but there is a <b>slight delay in the time it takes for our write to
-      the SICR to actually clear event 16</b>.
+    b. This is a very tightly controlled while loop containing only 4 assembly instructions.
+       Because every instruction is single cycle it will only take <b>4 cycles</b> to complete.
+       Normally this would not be an issue, but there is a <b>slight delay in the time it takes for our write to
+       the SICR to actually clear event 16</b>.
 
-   c. To work around these we need to add a <b>very small CPU delay</b> after the write to SICR.
-      We chose <b>5 cycles</b> even though it is overkill, but we wanted to be safe and guarantee that the event
-      was cleared before the loop cycled back.
+    c. To work around these we need to add a <b>very small CPU delay</b> after the write to SICR.
+       We chose <b>5 cycles</b> even though it is overkill, but we wanted to be safe and guarantee that the event
+       was cleared before the loop cycled back.
 
-   ```C
-   /* Clear interrupt event */
-   CT_INTC.SICR = 16;
-   /* Delay to ensure the event is cleared in INTC */
-   __delay_cycles (5);
-   ```
+    ```C
+    /* Clear interrupt event */
+    CT_INTC.SICR = 16;
+    /* Delay to ensure the event is cleared in INTC */
+    __delay_cycles (5);
+    ```
 
-   d. <b>Without this delay, r31[31] is still high when the loop repeats and checks the status of the interrupt</b>.
-      Since the event has not been cleared yet, the <b>GPO pin is instantly toggled off</b> before we can see it toggled on.
+    d. <b>Without this delay, r31[31] is still high when the loop repeats and checks the status of the interrupt</b>.
+       Since the event has not been cleared yet, the <b>GPO pin is instantly toggled off</b> before we can see it toggled on.
 
-   e. <b>Rebuild the project, reload and observe</b>.
-      The LED should now toggle when you press SW1 \!
-      No, really, you should.
-      If you don't, this time it really is a bug.
+    e. <b>Rebuild the project, reload and observe</b>.
+       The LED should now toggle when you press SW1 \!
+       No, really, you should.
+       If you don't, this time it really is a bug.
 
