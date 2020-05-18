@@ -407,7 +407,7 @@ PRU multi-core communication.
     This should now compile successfully !
     If not, correct any errors until build completes.
 
-11. Let's launch the debugger and load the code!
+11. Let's launch the debugger and load the code
 
    a. Right click the Target Configuration file we created earlier and select <b>Launch Selected Configuration</b>.
 
@@ -433,7 +433,8 @@ PRU multi-core communication.
 
 12. Do you see the LED light up when you press SW1? If not, it sounds like a problem you will have to debug...
 
-   a. For this exercise we are going to take it easy on you and provide the answer; however, first a quick explanation of why your code is not working.
+   a. For this exercise we are going to take it easy on you and provide the answer; however,
+      first a quick explanation of why your code is not working.
 
    b. This is a very tightly controlled while loop containing only 4 assembly instructions.
       Because every instruction is single cycle it will only take <b>4 cycles</b> to complete.
@@ -450,4 +451,12 @@ PRU multi-core communication.
    /* Delay to ensure the event is cleared in INTC */
    __delay_cycles (5);
    ```
+
+   d. <b>Without this delay, r31[31] is still high when the loop repeats and checks the status of the interrupt</b>.
+      Since the event has not been cleared yet, the <b>GPO pin is instantly toggled off</b> before we can see it toggled on.
+
+   e. <b>Rebuild the project, reload and observe</b>.
+      The LED should now toggle when you press SW1!
+      No, really, you should.
+      If you don't, this time it really is a bug.
 
