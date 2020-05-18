@@ -403,7 +403,7 @@ PRU multi-core communication.
 
 9. Save the file, and then add the include directory to the Include Search Path of the button_led_1 project as before.
 
-10. Select OK and then <b>build the project<b>.
+10. Select OK and then <b>build the project</b>.
     This should now compile successfully \!
     If not, correct any errors until build completes.
 
