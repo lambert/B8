@@ -394,7 +394,7 @@ PRU multi-core communication.
    }
    ```
 
-   e. Once the interrupt is received we need to clear it by <b>clearing the event</c>.
+   e. Once the interrupt is received we need to clear it by <b>clearing the event</b>.
 
    ```C
    /* Clear interrupt event */
