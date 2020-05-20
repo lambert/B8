@@ -593,34 +593,34 @@ toggles a Red LED if the temperature increases and a Blue LED if the temperature
 
 10. Let’s launch the debugger and load the code \!
 
-   a. Right click the Target Configuration file we created earlier and select <b>Launch Selected Configuration</b>.
+    a. Right click the Target Configuration file we created earlier and select <b>Launch Selected Configuration</b>.
 
-   b. After it loads right click on the CortxA8 core and select <b>Connect Target</b>.
+    b. After it loads right click on the CortxA8 core and select <b>Connect Target</b>.
 
-   c. Run the GEL script under <b>Scripts->Initialization->Init</b>.
+    c. Run the GEL script under <b>Scripts->Initialization->Init</b>.
 
-   d. Right click on the PRU1 core and select <b>Connect Target</b>.
+    d. Right click on the PRU1 core and select <b>Connect Target</b>.
 
-   e. Load the example you just built by selecting <b>Project->Load->Load Program</b>, then navigate to the
-      project for temp_monitor_master_1 and select <b>temp_monitor_master_1.out</b>
+    e. Load the example you just built by selecting <b>Project->Load->Load Program</b>, then navigate to the
+       project for temp_monitor_master_1 and select <b>temp_monitor_master_1.out</b>
 
-   f. Select the <b>green arrow</b> to run your code.
+    f. Select the <b>green arrow</b> to run your code.
 
-   <b>NOTE:/b> PRU1 needs to be run first because of the INTC configuration dependency.
+    <b>NOTE:</b> PRU1 needs to be run first because of the INTC configuration dependency.
 
-   g. Right click on the PRU0 core and select <b>Connect Target</b>.
+    g. Right click on the PRU0 core and select <b>Connect Target</b>.
 
-   h. Load the second example you built by selecting <b>roject->Load->Load Program</b>,
-      then navigate to the project for temp_monitor_slave_0 and <b>select temp_monitor_slave_0.out</b>
+    h. Load the second example you built by selecting <b>roject->Load->Load Program</b>,
+       then navigate to the project for temp_monitor_slave_0 and <b>select temp_monitor_slave_0.out</b>
 
-   i. Select the <b>green arrow</b> to run your code.
+    i. Select the <b>green arrow</b> to run your code.
 
-   j. You should now see the RED or BLUE LED toggle depending on the change in temperature \!
-      (Note neither LED will be illuminated if there is no change in temperature.)
+    j. You should now see the RED or BLUE LED toggle depending on the change in temperature \!
+       (Note neither LED will be illuminated if there is no change in temperature.)
 
-   k. Place either your thumb or the palm of your hand over TEMP1 temperature sensor to see the
-      temperature rise and the RED LED illuminated.
-      Remove your thumb or palm to see the temperature fall and the BLUE LED illuminated.
+    k. Place either your thumb or the palm of your hand over TEMP1 temperature sensor to see the
+       temperature rise and the RED LED illuminated.
+       Remove your thumb or palm to see the temperature fall and the BLUE LED illuminated.
 
 11. During our design discussion, we were unsure how many PRU cycles the CRC calculation would consume.
     Let’s actually measure the PRU cycles using the CCS debugger!
