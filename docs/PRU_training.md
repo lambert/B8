@@ -645,3 +645,33 @@ toggles a Red LED if the temperature increases and a Blue LED if the temperature
 
     i. In the Registers window, read the value in <b>PRU0_CTRL.CYCLE</b> register.
        This is the number of PRU cycles required to calculate the CRC for each byte.
+
+## LAB 4: Introduction to Linux driver
+
+### Objective
+
+To test the Linux remoteproc driver.
+We will first add a resource table to the projects we created earlier in lab 2, rebuild those projects,
+load the .out files into the target filesystem and then use the remoteproc driver to load that code
+into the PRU cores.
+
+<b>NOTE:</b> Beginning with Linux Processor SDK 2.0.2.11 the remoteproc and rpmsg drivers are enabled by default
+in the provided kernel configuration and default binaries. Therefore, it is no longer necessary to modify the
+.config in order to load firmwares into the PRU cores.
+If you are using a version of the Linux Processor SDK prior to 2.0.2.11 please see the archive links at the
+bottom of this page.
+
+### Lab Steps
+
+<b>Build the PRU Firmware</b>
+
+1. Launch CCSv6 and select the default Workspace.
+
+2. Open the <b>button_led_0 project</b>.
+
+   a. In the button_led_0 project, select <b>File->Open File</b> and copy in the <b>resource_table_0.h file</b>
+      from <PRU_SW_PATH>/labs/lab_4 or use <b>Project->Add Files...</b> to add the file to the project
+      and copy it into the workspace.
+
+   b. In the AM335x.cmd file, add a line telling the linker where to place the new <b>.resource_table</b> section.
+
