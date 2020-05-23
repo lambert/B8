@@ -675,3 +675,27 @@ bottom of this page.
 
    b. In the AM335x.cmd file, add a line telling the linker where to place the new <b>.resource_table</b> section.
 
+   ![fig_5](./Pru_lab4_linkcmd.png)
+ 
+   c. In button_led_0.c <b>include the resource_table_0.h file</b>.
+
+   ```C
+   #include <stdint.h>
+   #include <pru_cfg.h>
+   #include <pru_intc.h>
+   #include "resource_table_0.h"
+   ```
+
+   d. <b>Rebuild the project</b> and ensure that it builds correctly without errors.
+
+3. Open the <b>button_led_1 project</b>.
+
+   a. Select <b>File->Open File</b> and copy in the <b>resource_table_1.h file</b> from <PRU_SW_PATH>/labs/lab_4 or use
+      <b>Project->Add Files...</b> and copy the file into the workspace.
+
+   b. In button_led_1.c <b>include the resource_table_1.h file</b>.
+
+   c. Rebuild the project and ensure that it builds correctly without errors.
+
+   d. You may choose to launch the debugger and verify that both projects run without issues.
+
