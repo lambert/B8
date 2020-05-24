@@ -699,3 +699,65 @@ bottom of this page.
 
    d. You may choose to launch the debugger and verify that both projects run without issues.
 
+<b>Configure the Kernel</b>
+
+<b>NOTE:</b> This step is needed before building the kernel, kernel modules, device tree files, etc.
+For more information about these steps, see the [Kernel Users Guide](http://software-dl.ti.com/processor-sdk-linux/esd/docs/latest/linux/Foundational_Components_Kernel_Users_Guide.html).
+
+4. Prepare to build the kernel, kernel modules, device tree files, etc
+
+   a. Export the terminal PATH to where the cross compiler toolchain files can be found.
+      This can be found in the linux-devkit/sysroots/<Arago Linux>/user/bin of your SDK directory
+      where your Arago Linux version may be x86_64-arago-linux.
+      Be sure to include /home/<user>/ before your SDK directory.
+
+      <b>export PATH=$PATH:<SDK path>/linux-devkit/sysroots/<Arago Linux>/usr/bin/</b>
+
+<b>NOTE:</b> You will have to do this each time you open a new terminal.
+
+   b. Clean the kernel sources
+
+   <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- distclean</b>
+
+   c. Configure the kernel
+
+   <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- tisdk_am335x-evm_defconfig</b>
+
+<b>Build the Linux Kernel and remoteproc Driver</b>
+
+5. Beginning with Linux Processor SDK v2.0.2.11, the remoteproc and rpmsg modules are enabled by default
+   and included out of the box in the Linux Processor SDK.
+   These instructions assume users use the prebuilt kernel and driver modules used in the create
+   SD card script, so we do not need to rebuild the kernel and driver modules.
+   See section "Copy files to the target filesystem" for information on using the create SD card script.
+   More information on enabling the remoteproc and rpmsg modules may be found in the
+   "How to Enable PRU Support in Kernel" section
+   [here](http://software-dl.ti.com/processor-sdk-linux/esd/docs/latest/linux/Foundational_Components_PRU-ICSS_PRU_ICSSG.html#getting-started-with-pru-icss).
+
+<b>Modify Device Tree Files to Account for PRU Cape</b>
+
+The SDK includes example device tree source files for several TI and community boards, like the Beaglebone Black.
+Since the PRU cape requires certain pin muxing and configuration to be configured to be usable in Linux, this
+requires modifications to the device tree files.
+
+6. Modify to SDK provided DTS (devicetree source) files to account for the PRU cape.
+
+   a. Copy the am335x-boneblack-prucape.dtsi from the </b><PRU_SW_PATH>/pru_cape</b> directory to arch/arm/boot/dts.
+
+   b. In your kernel source tree, open arch/arm/boot/dts/am335x-boneblack.dts for editing.
+
+   c. Add the below line to include the PRU Cape DTS file <b>to the bottom</b> of the am335x-boneblack.dts file.
+
+   <b>#include "am335x-boneblack-prucape.dtsi"</b>
+
+   <b>NOTE: </b> It is very important that this edit be made at the end of the file.
+   Not included with the other include files.
+   Device Trees work with an "overlay" mentality, applying changes as they are found serially to
+   a "tree" structure. We need the edits made for the PRU cape to be applied last.
+
+   d. Save the file.
+
+   e. Compile the DTS file:
+
+   <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x-boneblack.dtb</b>
+
