@@ -711,7 +711,7 @@ For more information about these steps, see the [Kernel Users Guide](http://soft
       where your Arago Linux version may be x86_64-arago-linux.
       Be sure to include /home/<user>/ before your SDK directory.
 
-      <b>export PATH=$PATH:<SDK path>/linux-devkit/sysroots/<Arago Linux>/usr/bin/</b>
+         <b>export PATH=$PATH:<SDK path>/linux-devkit/sysroots/<Arago Linux>/usr/bin/</b>
 
       <b>NOTE:</b> You will have to do this each time you open a new terminal.
 
@@ -721,7 +721,7 @@ For more information about these steps, see the [Kernel Users Guide](http://soft
 
    c. Configure the kernel
 
-   <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- tisdk_am335x-evm_defconfig</b>
+      <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- tisdk_am335x-evm_defconfig</b>
 
 #### Build the Linux Kernel and remoteproc Driver
 
@@ -748,7 +748,7 @@ requires modifications to the device tree files.
 
    c. Add the below line to include the PRU Cape DTS file <b>to the bottom</b> of the am335x-boneblack.dts file.
 
-   <b>#include "am335x-boneblack-prucape.dtsi"</b>
+      <b>#include "am335x-boneblack-prucape.dtsi"</b>
 
    <b>NOTE: </b> It is very important that this edit be made at the end of the file.
    Not included with the other include files.
@@ -759,7 +759,7 @@ requires modifications to the device tree files.
 
    e. Compile the DTS file:
 
-   <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x-boneblack.dtb</b>
+      <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x-boneblack.dtb</b>
 
 #### Copy files to the target filesystem
 
@@ -788,5 +788,46 @@ So far, we've built the PRU firmware and the modified device tree. Now, we need 
 
          <b>sudo ln -f -s am335x-boneblack-prucape.dtb am335x-boneblack.dtb</b>
 
-      5. Use the sync command to make sure all of your changes have been committed to the SD card.
+      5. Use the <b>sync</b> command to make sure all of your changes have been committed to the SD card.
 
+#### Boot the new device tree and FS on the Target
+
+Now we're ready to try everything out.
+
+8. Move the SD card from the host PC to the target board.
+
+9. Boot the Beaglebone Black from the SD Card by holding down the "boot" button while applying power with
+   either the USB cable or a dedicated 5V power source.
+   The "boot" button may be difficult to get to with the PRU cape in place.
+   It is right above the micro SD card slot.
+
+10. Wait for the kernel to boot. At the prompt, login with "root" and no password.
+
+11. Use the remoteproc sysfs interface to specify which firmwares you want the remoteproc driver to load
+
+       <b>echo 'pru/button_led_0.out' > /sys/class/remoteproc/remoteproc1/firmware</b>
+
+       <b>echo 'pru/button_led_1.out' > /sys/class/remoteproc/remoteproc2/firmware</b>
+
+12. Once again use the remoteproc sysfs interface to load and then run the PRU cores
+
+       <b>echo 'start' > /sys/class/remoteproc/remoteproc1/state</b>
+
+       <b>echo 'start' > /sys/class/remoteproc/remoteproc2/state</b>
+
+13. Observe the LEDs blink.
+
+    a. Once 'start' has been echoed into the 'state' attribute the remoteproc firmware will load the PRU cores
+       and then run them. You should be able to see the LED toggle as you press the switch as before in Lab 2.
+
+    b. If you would like to unload and then reload the PRU cores, use the commands below:
+
+       <b>echo 'stop' > /sys/class/remoteproc/remoteproc1/state</b>
+
+       <b>echo 'stop' > /sys/class/remoteproc/remoteproc2/state</b>
+
+       <b>echo 'start' > /sys/class/remoteproc/remoteproc1/state</b>
+
+       <b>echo 'start' > /sys/class/remoteproc/remoteproc2/state</b>
+
+## LAB 5: RPMsg Communication between ARM and PRU
