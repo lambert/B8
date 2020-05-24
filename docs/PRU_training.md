@@ -831,3 +831,35 @@ Now we're ready to try everything out.
        <b>echo 'start' > /sys/class/remoteproc/remoteproc2/state</b>
 
 ## LAB 5: RPMsg Communication between ARM and PRU
+
+### Objective
+
+This lab will show how to build a firmware that uses the rpmsg_lib PRU library in order to enable communication
+with the ARM core running Linux.
+Part 1 will walk you through creating the PRU firmware and loading the modules necessary for PRU to kernel space
+communication.
+Part 2 will use a different Linux module in order to expose a user space interface for PRU communication.
+Part 3 will show how to create a user space C application that can send and receive messages to a PRU core.
+This lab expects to use the remoteproc Linux driver to load the PRU firmware.
+<b>Please complete and understand [Lab](https://processors.wiki.ti.com/index.php/PRU_Training:_Hands-on_Labs#LAB_4:_Introduction_to_Linux_driver) 4 before beginning this lab.</b>
+
+### Lab Steps
+
+#### Build the PRU Firmware
+
+##### Using CCSv6
+
+1. Launch CCSv6 and select the default Workspace.
+
+2. Import the <b>PRU_RPMsg_Echo_Interrupt1</b> and <b>PRU_Halt</b> projects from the lab_5 solution folder.
+
+   a. <b>Project->Import CCS Projects...</b>
+
+   b. Click <b>Browse...</b>
+
+   c. Navigate to <b><PRU_SW_PATH>/labs/lab_5/solution</b> and click <b>OK</b> (where <PRU_SW_PATH> is
+      the path to your PRU Software Support Package installation).
+
+   d. Click the checkbox next to both projects in order to select them and then click <b>Finish</b>.
+       (For this lab, you do not need to check 'Automatically import referenced projects...' or 'Copy project into workspace'.)
+
