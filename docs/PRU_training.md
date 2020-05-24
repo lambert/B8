@@ -663,7 +663,7 @@ bottom of this page.
 
 ### Lab Steps
 
-<b>Build the PRU Firmware</b>
+#### Build the PRU Firmware
 
 1. Launch CCSv6 and select the default Workspace.
 
@@ -699,7 +699,7 @@ bottom of this page.
 
    d. You may choose to launch the debugger and verify that both projects run without issues.
 
-<b>Configure the Kernel</b>
+#### Configure the Kernel
 
 <b>NOTE:</b> This step is needed before building the kernel, kernel modules, device tree files, etc.
 For more information about these steps, see the [Kernel Users Guide](http://software-dl.ti.com/processor-sdk-linux/esd/docs/latest/linux/Foundational_Components_Kernel_Users_Guide.html).
@@ -713,7 +713,7 @@ For more information about these steps, see the [Kernel Users Guide](http://soft
 
       <b>export PATH=$PATH:<SDK path>/linux-devkit/sysroots/<Arago Linux>/usr/bin/</b>
 
-<b>NOTE:</b> You will have to do this each time you open a new terminal.
+      <b>NOTE:</b> You will have to do this each time you open a new terminal.
 
    b. Clean the kernel sources
 
@@ -723,7 +723,7 @@ For more information about these steps, see the [Kernel Users Guide](http://soft
 
    <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- tisdk_am335x-evm_defconfig</b>
 
-<b>Build the Linux Kernel and remoteproc Driver</b>
+#### Build the Linux Kernel and remoteproc Driver
 
 5. Beginning with Linux Processor SDK v2.0.2.11, the remoteproc and rpmsg modules are enabled by default
    and included out of the box in the Linux Processor SDK.
@@ -734,7 +734,7 @@ For more information about these steps, see the [Kernel Users Guide](http://soft
    "How to Enable PRU Support in Kernel" section
    [here](http://software-dl.ti.com/processor-sdk-linux/esd/docs/latest/linux/Foundational_Components_PRU-ICSS_PRU_ICSSG.html#getting-started-with-pru-icss).
 
-<b>Modify Device Tree Files to Account for PRU Cape</b>
+#### Modify Device Tree Files to Account for PRU Cape
 
 The SDK includes example device tree source files for several TI and community boards, like the Beaglebone Black.
 Since the PRU cape requires certain pin muxing and configuration to be configured to be usable in Linux, this
@@ -760,4 +760,33 @@ requires modifications to the device tree files.
    e. Compile the DTS file:
 
    <b>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x-boneblack.dtb</b>
+
+#### Copy files to the target filesystem
+
+So far, we've built the PRU firmware and the modified device tree. Now, we need to copy these files to the target filesystem. We're going to keep things simple and make some assumptions. If you've done things differently in your set up, then you'll need to adapt these instructions to your set up.
+
+7. We need to get the new device tree and PRU firmware running on the Beaglebone Black. The easiest way to do this is with an SD card. There are lots of other alternatives (boot from TFTP with an initramfs, boot from TFTP and mount the FS over NFS, copy everything to the Beaglebone Black's eMMC, etc.). Feel free to adapt these instructions to your desired setup.
+
+   a. Use the script included with the SDK to create a bootable SD card. You can find instructions on this process here.
+
+   b. Once the card is created, mount it on your Linux host to copy the files to it.
+
+   c. The rootfs partition on the SD card contains the target filesystem.
+      Copy the files from your development host to the SD card:
+
+      1. Copy the <b>button_led_0.out</b> and <b>button_led_1.out</b> from your CCS workspace where they were built
+         to the /lib/firmware/pru directory of the rootfs partition.
+
+      2. Make a copy of am335x-boneblack.dtb, in the same directory arch/arm/boot/dts, and change its name
+         to am335x-boneblack-prucape.dtb.
+
+      3. Copy the am335x-boneblack-prucape.dtb from arch/arm/boot/dts to the boot directory of the
+         rootfs partition of the SD card.
+
+      4. Change the "am335x-boneblack.dtb" symlink in the rootfs/boot directory to point to the
+         am335x-boneblack-prucape.dtb instead of the default.
+
+         <b>sudo ln -f -s am335x-boneblack-prucape.dtb am335x-boneblack.dtb</b>
+
+      5. Use the sync command to make sure all of your changes have been committed to the SD card.
 
